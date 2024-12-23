@@ -1,0 +1,30 @@
+.part {
+  display: grid;
+  grid-gap: 20px;
+  /* width: 500px; */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0px 8px;
+  margin-bottom: 12px;
+  p{
+    margin: 0;
+    padding: 10px;
+    /* width: 80px; */
+    height: 30px;
+  }
+}
+
+.rowItem{
+  display: flex;
+  justify-content: space-between;
+  background-color: #4e4e4e;
+  color: #ccc;
+  border-radius: 8px;
+  width: 180px;
+}
+.part1 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.part2 {
+  grid-template-columns: repeat(5, 1fr);
+}
