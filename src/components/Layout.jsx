@@ -1,6 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 
-const Layer = ({ year, additional }) => {
+const Layer = () => {
   // console.log(additional);
   
   return (
@@ -19,7 +19,7 @@ const Layer = ({ year, additional }) => {
             <Link to="add">Добавить период</Link>
           </li>
           <li>
-            <Link to="4">Анализ работы</Link>
+            <Link to="detail/period/8/2023">Анализ работы</Link>
           </li>
           <li>
             <Link to="5">MenuItem</Link>

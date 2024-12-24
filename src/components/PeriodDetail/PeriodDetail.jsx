@@ -52,37 +52,39 @@ const PeriodDetail = () => {
               <p>{period.norm}</p>
             </div>
           </div>
-          <h3>Сверхурочные до 7 часов</h3>
           <div className={`${styles.part} ${styles.part2}`}>
-            <div className={styles.rowItem}>
-              <p>Пассажирское: </p>
-              <p>{period.overtime?.pass_}</p>
-            </div>
-            <div className={styles.rowItem}>
-              <p>Грузовое: </p>
-              <p>{period.overtime?.gruz}</p>
-            </div>
-            <div className={styles.rowItem}>
-              <p>Маневровое </p>
-              <p>{period.overtime?.manevr}</p>
-            </div>
-            <div className={styles.rowItem}>
-              <p>Хозяйственное: </p>
-              <p>{period.overtime?.household}</p>
-            </div>
-            <div className={styles.rowItem}>
-              <p>Прогрев: </p>
-              <p>{period.overtime?.heaters}</p>
-            </div>
-            <div className={styles.rowItem}>
-              <p>Итого: </p>
-              <p>
-                {period.overtime
-                  ? Object.values(period.overtime)
-                      .reduce((a, b) => a + b, 0)
-                      .toFixed(2)
-                  : 0}
-              </p>
+            <h3>Сверхурочные до 7 часов</h3>
+            <div className={styles.zone1}>
+              <div className={styles.rowItem}>
+                <p>Пассажирское: </p>
+                <p>{period.overtime?.pass_}</p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Грузовое: </p>
+                <p>{period.overtime?.gruz}</p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Маневровое </p>
+                <p>{period.overtime?.manevr}</p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Хозяйственное: </p>
+                <p>{period.overtime?.household}</p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Прогрев: </p>
+                <p>{period.overtime?.heaters}</p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Итого: </p>
+                <p>
+                  {period.overtime
+                    ? Object.values(period.overtime)
+                        .reduce((a, b) => a + b, 0)
+                        .toFixed(2)
+                    : 0}
+                </p>
+              </div>
             </div>
           </div>
           {period.norm}

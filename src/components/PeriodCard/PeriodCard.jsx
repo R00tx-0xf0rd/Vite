@@ -2,6 +2,7 @@ import { Card } from "antd";
 // import React from 'react'
 import { monthStr } from "../../helpers/lib";
 import styles from "./styles.module.css";
+import { Link } from "react-router-dom";
 
 const PeriodCard = ({ ...period }) => {
   // console.log({period});
@@ -13,7 +14,6 @@ const PeriodCard = ({ ...period }) => {
         bordered={false}
         size="small"
         title={`Карточка за ${monthStr(period.month)} ${period.year} года `}
-        style={{ width: 250 }}
       >
         <ul>
           {/* <li>Год: {period.year}</li>
@@ -28,13 +28,13 @@ const PeriodCard = ({ ...period }) => {
             Недостаток человек: <span>{period.human_hours}</span>
           </li>
         </ul>
-        <p>
-          <a
-            href={`detail/period/${period.month}/${period.year}`}
+        
+          <Link
+            to={`detail/period/${period.month}/${period.year}`}
           >
             Подробнее...
-          </a>
-        </p>
+          </Link>
+        
       </Card>
     </>
   );
