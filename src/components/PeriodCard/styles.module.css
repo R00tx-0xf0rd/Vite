@@ -1,0 +1,15 @@
+.period-card {
+  background: #b4b4b4;
+  color:#313131
+}
+
+ul{
+  font-family: jura;
+  font-weight: 600;
+  padding: 5px;
+  li{
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+  }
+}
