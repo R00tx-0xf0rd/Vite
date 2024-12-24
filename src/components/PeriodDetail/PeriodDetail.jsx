@@ -30,31 +30,34 @@ const PeriodDetail = () => {
   }, []);
 
   return (
-    <div>
+    <Card>
       {loading ? (
         <Spin size="large">
           <div>Loading...</div>
         </Spin>
       ) : (
-        <Card title={`Полные данные за ${period.month} месяц`} size="small">
-          <h3>Основные данные</h3>
-          <div className={`${styles.part} ${styles.part1}`}>
-            <div className={styles.rowItem}>
-              <p>Год: </p>
-              <p>{period.year}</p>
-            </div>
-            <div className={styles.rowItem}>
-              <p>Месяц: </p>
-              <p>{period.month}</p>
-            </div>
-            <div className={styles.rowItem}>
-              <p>Норма часов: </p>
-              <p>{period.norm}</p>
+        <div className={styles.grid}>
+          <div className={styles.zone1}>
+            <h3>Основные данные</h3>
+            <div className={styles.innerBlock}>
+              <div className={styles.rowItem}>
+                <p>Год: </p>
+                <p>{period.year}</p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Месяц: </p>
+                <p>{period.month}</p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Норма часов: </p>
+                <p>{period.norm}</p>
+              </div>
             </div>
           </div>
-          <div className={`${styles.part} ${styles.part2}`}>
+
+          <div className={styles.zone2}>
             <h3>Сверхурочные до 7 часов</h3>
-            <div className={styles.zone1}>
+            <div className={styles.innerBlock}>
               <div className={styles.rowItem}>
                 <p>Пассажирское: </p>
                 <p>{period.overtime?.pass_}</p>
@@ -91,9 +94,9 @@ const PeriodDetail = () => {
           <button onClick={() => console.log(period.overtime.pass_)}>
             PressMe
           </button>
-        </Card>
+        </div>
       )}
-    </div>
+    </Card>
   );
 };
 
