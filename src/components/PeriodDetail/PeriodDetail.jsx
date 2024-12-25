@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+import { monthStr } from "../../helpers/lib";
 import styles from "./styles.module.css";
 
 const PeriodDetail = () => {
@@ -28,6 +29,35 @@ const PeriodDetail = () => {
 
     // getPeriod(month, year);
   }, []);
+  const {
+    norm,
+    human_hours,
+    pass_follow,
+    rez_follow,
+    wait_follow,
+    less7,
+    vacations,
+    diseases,
+    distractions,
+    outside_depots,
+    business_trips,
+    doublers,
+    training_vacations
+  } = period;
+
+  const totalHours =
+    human_hours * norm +
+    pass_follow +
+    rez_follow +
+    wait_follow +
+    less7 +
+    vacations * norm +
+    diseases * norm +
+    distractions * norm +
+    business_trips * norm +
+    outside_depots * norm +
+    doublers * norm +
+    training_vacations * norm;
 
   return (
     <Card>
@@ -46,11 +76,15 @@ const PeriodDetail = () => {
               </div>
               <div className={styles.rowItem}>
                 <p>Месяц: </p>
-                <p>{period.month}</p>
+                <p>{monthStr(period.month)}</p>
               </div>
-              <div className={styles.rowItem}>
+              {/* <div className={styles.rowItem}>
                 <p>Норма часов: </p>
                 <p>{period.norm}</p>
+              </div> */}
+              <div className={styles.rowItem}>
+                <p>Недостаток человек: </p>
+                <p>{human_hours}<span> / {(human_hours * norm*100/totalHours).toFixed(1)}%</span></p>
               </div>
             </div>
           </div>
@@ -90,7 +124,64 @@ const PeriodDetail = () => {
               </div>
             </div>
           </div>
-          {period.norm}
+          <div className={styles.zone3}>
+            <h3>Различные виды следования</h3>
+            <div className={styles.innerBlock}>
+              <div className={styles.rowItem}>
+                <p>Следование пассажиром: </p>
+                <p>{period.pass_follow}<span> / {(pass_follow/totalHours*100).toFixed(1)}%</span></p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Следование резервом: </p>
+                <p>{period.rez_follow}<span> / {(rez_follow/totalHours*100).toFixed(1)}%</span></p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Простой в ожидании: </p>
+                <p>{period.wait_follow}<span> / {(wait_follow/totalHours*100).toFixed(1)}%</span></p>
+              </div>
+            </div>
+          </div>
+          <div className={styles.zone4}>
+            <h3>Разное</h3>
+            <div className={styles.innerBlock}>
+              <div className={styles.rowItem}>
+                <p>Графиковые (до 7 часов)</p>
+                <p>{period.less7?.toFixed(2)}<span> / {(less7 * 100/totalHours).toFixed(1)}%</span></p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Очередной отпуск</p>
+                <p>{period.vacations}<span> / {(vacations * norm*100/totalHours).toFixed(1)}%</span></p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Болезнь свыше нормы: </p>
+                <p>{period.diseases}<span> / {(diseases * norm*100/totalHours).toFixed(1)}%</span></p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Отвлечение в депо: </p>
+                <p>{period.distractions}<span> / {(distractions * norm*100/totalHours).toFixed(1)}%</span></p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Командировки: </p>
+                <p>{period.business_trips}<span> / {(business_trips * norm*100/totalHours).toFixed(1)}%</span></p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Вне депо: </p>
+                <p>{period.outside_depots}<span> / {(outside_depots * norm*100/totalHours).toFixed(1)}%</span></p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Дублеры:</p>
+                <p>{period.doublers}<span> / {(doublers * norm*100/totalHours).toFixed(1)}%</span></p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Учебный отпуск: </p>
+                <p>{period.training_vacations}<span> / {(training_vacations * norm*100/totalHours).toFixed(1)}%</span></p>
+              </div>
+              <div className={styles.rowItem}>
+                <p>Total: </p>
+                <p>{totalHours}</p>
+              </div>
+            </div>
+          </div>
           <button onClick={() => console.log(period.overtime.pass_)}>
             PressMe
           </button>
