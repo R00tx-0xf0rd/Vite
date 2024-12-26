@@ -13,16 +13,16 @@ const Layer = () => {
             <Link to="/">Главная</Link>
           </li>
           <li>
-            <Link to="/tables">Таблицы</Link>
+            <Link to="tables">Таблицы</Link>
           </li>
           <li>
             <Link to="add">Добавить период</Link>
           </li>
           <li>
-            <Link to="detail/period/8/2023">Анализ работы</Link>
+            <Link to="analytics">Анализ работы</Link>
           </li>
           <li>
-            <Link to="5">MenuItem</Link>
+            <Link to="about">О программе</Link>
           </li>
         </ul>
       <aside className="left-menu"></aside>

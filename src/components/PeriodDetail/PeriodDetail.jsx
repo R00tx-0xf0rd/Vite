@@ -60,7 +60,7 @@ const PeriodDetail = () => {
     training_vacations * norm;
 
   return (
-    <Card>
+    <Card style={{backgroundColor: "#d4d4d4"}}>
       {loading ? (
         <Spin size="large">
           <div>Loading...</div>

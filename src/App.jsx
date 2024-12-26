@@ -9,6 +9,7 @@ import NotFound from "./Pages/NotFound";
 import Tables from "./Pages/Tables";
 import TimesForm from "./components/TimesForm/TimesForm";
 import PeriodDetail from "./components/PeriodDetail/PeriodDetail";
+import Analytics from "./components/Analytics/Analytics";
 
 function App() {
   const [periods, setPeriods] = useState([]);
@@ -50,6 +51,7 @@ function App() {
             path="tables"
             element={<Tables isLoading={loading} periods={periods} />}
           />
+          <Route path="analytics" element={<Analytics/>} />
           <Route path="detail/period/:month/:year" element={<PeriodDetail/>} />
           <Route path="about" element={<About />} />
           <Route path="*" element={<NotFound />} />
