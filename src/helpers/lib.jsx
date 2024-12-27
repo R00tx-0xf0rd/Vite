@@ -1,5 +1,4 @@
 import axios from "axios";
-import React from "react";
 export const month = [
   "январь",
   "февраль",
@@ -39,4 +38,15 @@ export function getParams(setFn, month = 2, year = new Date().getFullYear()) {
   }
   getFromBegin()
   return res
+}
+
+
+export async function myFetch(url) {
+  try {
+    const resp = await axios.get(url);
+    return resp.data;
+  } catch (error) {
+    console.log(error.message);
+    return null;
+  }
 }
