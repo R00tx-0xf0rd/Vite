@@ -27,11 +27,12 @@ p {
   height: 660px;
 }
 .rowItem {
+  border: 1px solid green;
   font-family: jura;
   font-weight: 900;
   display: flex;
   /* flex-direction: column; */
-  font-size: 14px;
+  font-size: 12px;
   justify-content: space-between;
   /* align-items: center; */
   text-align: center;
@@ -39,6 +40,14 @@ p {
   color: #d4d4d4;
   border-radius: 8px;
   /* width: 100px; */
+}
+
+.cell{
+  border: 1px solid #557deb;
+  min-width: 45px;
+  border-radius: 5px;
+  margin: 3px;
+  padding: 3px;
 }
 .innerBlock {
   border: 2px solid #7a7a7a;
@@ -53,16 +62,16 @@ p {
 
 .zone1 {
   grid-row: 1/7;
-  grid-column: 3/10;
+  grid-column: 1/9;
   height: 300px;
 }
 .zone2 {
-  grid-row: 5/7;
-  grid-column: 3/10;
+  grid-row: 1/7;
+  grid-column: 9/17;
 }
 .zone3 {
-  grid-row: 3/5;
-  grid-column: 3/10;
+  grid-row: 1/7;
+  grid-column: 17/25;
 }
 .zone4 {
   grid-row: 1/5;

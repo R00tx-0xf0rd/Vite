@@ -41,12 +41,8 @@ export function getParams(setFn, month = 2, year = new Date().getFullYear()) {
 }
 
 
-export async function myFetch(url) {
-  try {
-    const resp = await axios.get(url);
-    return resp.data;
-  } catch (error) {
-    console.log(error.message);
-    return null;
-  }
+export function getPercentage (left, right, total)  {
+  const percent = ((left / right) * 100).toFixed(1);
+  const hours = (left / right *total).toFixed(1);
+  return [percent, hours]
 }
