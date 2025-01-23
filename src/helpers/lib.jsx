@@ -1,4 +1,5 @@
 import axios from "axios";
+import { backend_addr } from "./constant";
 export const month = [
   "январь",
   "февраль",
@@ -21,7 +22,7 @@ export function monthStr(indx) {
 
 export function getParams(setFn, month = 2, year = new Date().getFullYear()) {
   let res = {}
-  const url = `http://localhost:8000/times/from-begin/${month}/${year}`
+  const url = `http://${backend_addr}/times/from-begin/${month}/${year}`
   async function getFromBegin ()  {
     try {const resp = await axios.get(url);
       res = resp.data;

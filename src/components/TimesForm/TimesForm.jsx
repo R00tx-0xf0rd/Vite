@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useActionState } from "react";
-import styles from "./styles.module.css";
+import { backend_addr } from "../../helpers/constant";
 import MyModal from "../MyModal/MyModal";
+import styles from "./styles.module.css";
 
 const TimesForm = () => {
   const [state, submitAction] = useActionState(setPeriod, {
@@ -24,7 +25,7 @@ const TimesForm = () => {
     // console.log(data);
     try {
       const response = await axios.post(
-        "http://localhost:8000/times/period/",
+        `http://${backend_addr}/times/period/`,
         data,
         {
           headers: {
@@ -45,7 +46,7 @@ const TimesForm = () => {
       {!state.data && (
         <div className={styles.wrapper}>
           <h3>Добавление данных в БД</h3>
-          <MyModal/>
+          <MyModal />
           <form action={submitAction}>
             <fieldset className={styles.group}>
               <legend> Общие данные</legend>

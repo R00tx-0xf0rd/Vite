@@ -2,14 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Analytics from "./components/Analytics/Analytics";
 import Layer from "./components/Layout";
+import PeriodDetail from "./components/PeriodDetail/PeriodDetail";
+import TimesForm from "./components/TimesForm/TimesForm";
+import { backend_addr } from "./helpers/constant";
 import About from "./Pages/About";
 import Home from "./Pages/Home";
 import NotFound from "./Pages/NotFound";
 import Tables from "./Pages/Tables";
-import TimesForm from "./components/TimesForm/TimesForm";
-import PeriodDetail from "./components/PeriodDetail/PeriodDetail";
-import Analytics from "./components/Analytics/Analytics";
 
 function App() {
   const [periods, setPeriods] = useState([]);
@@ -18,7 +19,7 @@ function App() {
     const getPeriods = async () => {
       const year = new Date().getFullYear();
       // console.log(year)
-      const url = `http://localhost:8000/times/year/${year}`;
+      const url = `http://${backend_addr}/times/year/${year}`;
       setLoading(true);
       try {
         const response = await axios.get(url);
@@ -33,7 +34,7 @@ function App() {
 
   return (
     <>
-      <Link to="http://localhost:8000/times/year/2024">Home</Link>
+      <Link to={`http://${backend_addr}/times/year/2024`}>Home</Link>
 
       <Routes>
         <Route
@@ -51,8 +52,8 @@ function App() {
             path="tables"
             element={<Tables isLoading={loading} periods={periods} />}
           />
-          <Route path="analytics" element={<Analytics/>} />
-          <Route path="detail/period/:month/:year" element={<PeriodDetail/>} />
+          <Route path="analytics" element={<Analytics />} />
+          <Route path="detail/period/:month/:year" element={<PeriodDetail />} />
           <Route path="about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Route>

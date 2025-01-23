@@ -1,8 +1,8 @@
 import React from "react";
-import { ROW_NAMES } from "../../../helpers/constalnt";
+import { ROW_NAMES } from "../../../helpers/constant";
+import { getPercentage } from "../../../helpers/lib";
 import styles from "../../Analytics/styles.module.css";
 import { RowItem } from "../RowItem/RowItem";
-import { getPercentage } from "../../../helpers/lib";
 
 const TableItems = ({ year, summary, children, ...props }) => {
   const arr = Array.from(Object.keys(summary));

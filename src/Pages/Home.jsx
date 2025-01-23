@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import PeriodCard from "../components/PeriodCard/PeriodCard";
+import { backend_addr } from "../helpers/constant";
 
 const Home = () => {
   // const year = new Date().getFullYear();
   const [year, setYear] = useState(2024);
   const [periods, setPeriods] = useState(null);
   useEffect(() => {
-    fetch("http://localhost:8000/times/year/" + year)
+    fetch(`http://${backend_addr}/times/year/${year}`)
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
         if (data.detail) {
           setPeriods(null);
           console.log(periods);
-          
+
           throw "Указанный год не существует";
         }
         setPeriods(data);

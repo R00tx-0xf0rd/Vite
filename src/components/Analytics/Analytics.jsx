@@ -4,6 +4,7 @@ import { month as extMonth, getPercentage } from "../../helpers/lib";
 
 import TableItems from "../UI/TableItems/TableItems";
 import styles from "./styles.module.css";
+import { backend_addr } from "../../helpers/constant";
 
 const Analytics = () => {
   const [loading, setLoading] = React.useState(true);
@@ -32,7 +33,7 @@ const Analytics = () => {
 
   useEffect(() => {
     // console.log("month changed!!!");
-    const url = `http://localhost:8000/times/from-begin/${month}/${year}`;
+    const url = `http://${backend_addr}/times/from-begin/${month}/${year}`;
     myFetch(url);
 
     // console.log(periods);

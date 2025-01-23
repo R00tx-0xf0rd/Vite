@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+import { backend_addr } from "../../helpers/constant";
 import { monthStr } from "../../helpers/lib";
 import styles from "./styles.module.css";
 
@@ -13,7 +14,7 @@ const PeriodDetail = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:8000/times/period?month=${month}&year=${year}`)
+      .get(`http://${backend_addr}/times/period?month=${month}&year=${year}`)
       .then((resp) => {
         setPeriod(resp.data);
         console.log(period);
@@ -60,7 +61,7 @@ const PeriodDetail = () => {
     training_vacations * norm;
 
   return (
-    <Card style={{backgroundColor: "#d4d4d4"}}>
+    <Card style={{ backgroundColor: "#d4d4d4" }}>
       {loading ? (
         <Spin size="large">
           <div>Loading...</div>
