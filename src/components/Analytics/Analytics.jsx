@@ -5,6 +5,7 @@ import { month as extMonth, getPercentage } from "../../helpers/lib";
 import TableItems from "../UI/TableItems/TableItems";
 import styles from "./styles.module.css";
 import { backend_addr } from "../../helpers/constant";
+import AnalyticsRow from "../UI/AnalyticsRow/AnalyticsRow";
 
 const Analytics = () => {
   const [loading, setLoading] = React.useState(true);
@@ -53,72 +54,35 @@ const Analytics = () => {
 
   function analyze() {
     if (!periods) return null;
-    const sumObj = {
-      norm: 0,
-      human_hours: 0,
-      pass_follow: 0,
-      rez_follow: 0,
-      wait_follow: 0,
-      less7: 0,
-      vacations: 0,
-      diseases: 0,
-      distractions: 0,
-      business_trips: 0,
-      outside_depots: 0,
-      doublers: 0,
-      training_vacations: 0,
-      total_hours: 0,
-      hours: 0,
-    };
-    periods.forEach((element) => {
-      const {
-        norm,
-        human_hours,
-        pass_follow,
-        rez_follow,
-        wait_follow,
-        vacations,
-        diseases,
-        distractions,
-        outside_depots,
-        business_trips,
-        doublers,
-        training_vacations,
-        total_hours,
-      } = element;
-      sumObj.norm += norm;
-      sumObj.human_hours += human_hours * norm;
-      sumObj.pass_follow += pass_follow;
-      sumObj.rez_follow += rez_follow;
-      sumObj.wait_follow += wait_follow;
-      for (const item in element.overtime) {
-        sumObj.less7 += element.overtime[item];
+    const ignoreKeys = ["month", "year"];
+    const importantKeys = ["norm", "pass_follow", "rez_follow", "wait_follow"];
+    const outObj = {};
+    periods.forEach((monObj) => {
+      const { total_hours, overtime, ...rest } = monObj;
+
+      let sum = 0;
+      for (let key in rest) {
+        if (ignoreKeys.includes(key)) continue;
+        let val = 0;
+        if (importantKeys.includes(key)) {
+          val = rest[key];
+        } else {
+          val = rest[key] * rest["norm"];
+        }
+        outObj[key] = (outObj[key] || 0) + val;
+
+        sum += val;
+        // console.log(key, sum);
       }
-      sumObj.vacations += vacations * norm;
-      sumObj.diseases += diseases * norm;
-      sumObj.distractions += distractions * norm;
-      sumObj.business_trips += business_trips * norm;
-      sumObj.outside_depots += outside_depots * norm;
-      sumObj.doublers += doublers * norm;
-      sumObj.training_vacations += training_vacations * norm;
-      sumObj.total_hours += total_hours;
-      sumObj.hours =
-        sumObj.human_hours +
-        sumObj.pass_follow +
-        sumObj.rez_follow +
-        sumObj.wait_follow +
-        sumObj.less7 +
-        sumObj.vacations +
-        sumObj.diseases +
-        sumObj.outside_depots +
-        sumObj.distractions +
-        sumObj.business_trips +
-        sumObj.doublers +
-        sumObj.training_vacations;
+      const less7 = Object.values(overtime).reduce((a, b) => a + b, 0);
+      sum += less7;
+      outObj["less7"] = (outObj["less7"] || 0) + less7;
+      outObj["hours"] = (outObj["hours"] || 0) + sum - rest["norm"];
+      outObj["total_hours"] = (outObj["total_hours"] || 0) + total_hours;
     });
     setSummary((prev) => {
       // console.log(prev);
-      return { ...prev, ...sumObj };
+      return { ...prev, ...outObj };
     });
   }
 
@@ -145,29 +109,7 @@ const Analytics = () => {
                 <div className={styles.cell}>Норма часов: </div>
                 <div className={styles.cell}>{summary.norm}</div>
               </div>
-              <div className={styles.rowItem}>
-                <div className={styles.cell}>Нехватка человек: </div>
-                <div className={styles.cell}>{summary.human_hours}</div>
-                <div className={styles.cell}>
-                  {
-                    getPercentage(
-                      summary.human_hours,
-                      summary.hours,
-                      summary.total_hours
-                    )[0]
-                  }
-                  %
-                </div>
-                <div className={styles.cell}>
-                  {
-                    getPercentage(
-                      summary.human_hours,
-                      summary.hours,
-                      summary.total_hours
-                    )[1]
-                  }
-                </div>
-              </div>
+              <AnalyticsRow header = {'Нехватка человек:'} values = {[summary.hours, summary.human_hours, summary.total_hours]} />
               <div className={styles.rowItem}>
                 <p>Следование пассажиром: </p>
                 <p>

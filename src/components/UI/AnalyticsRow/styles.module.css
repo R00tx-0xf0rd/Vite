@@ -1,0 +1,23 @@
+.rowItem {
+  border: 1px solid green;
+  font-family: jura;
+  font-weight: 900;
+  display: flex;
+  /* flex-direction: column; */
+  font-size: 12px;
+  justify-content: space-between;
+  /* align-items: center; */
+  text-align: center;
+  background-color: #5e5e5e;
+  color: #d4d4d4;
+  border-radius: 8px;
+  /* width: 100px; */
+}
+
+.cell{
+  border: 1px solid #557deb;
+  min-width: 45px;
+  border-radius: 5px;
+  margin: 3px;
+  padding: 3px;
+}

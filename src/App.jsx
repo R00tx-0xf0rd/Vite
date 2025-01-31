@@ -17,7 +17,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getPeriods = async () => {
-      const year = new Date().getFullYear();
+      const year = new Date().getFullYear()-1;
       // console.log(year)
       const url = `http://${backend_addr}/times/year/${year}`;
       setLoading(true);
