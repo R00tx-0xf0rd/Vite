@@ -1,4 +1,3 @@
-import { getPercentage } from "../../../helpers/lib";
 import styles from "./styles.module.css";
 
 const AnalyticsRow = ({...props} ) => {
