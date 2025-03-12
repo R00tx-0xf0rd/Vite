@@ -2,8 +2,7 @@ import { useDispatch } from "react-redux";
 import styles from "./styles.module.css";
 import { setCurrentYear } from "../../../store/PeriodsSlice";
 
-import { useMemo, useCallback } from 'react';
-
+import { useMemo } from "react";
 
 const MySelect = ({ label }) => {
   const dispatch = useDispatch();
@@ -24,10 +23,6 @@ const MySelect = ({ label }) => {
     return items;
   }, [currentYear]);
 
-  // const onChangeHandler = useCallback((e) => {
-  //   dispatch(setCurrentYear(e.target.value));
-  // }, [dispatch]);
-
   console.log("select rendered");
 
   return (
@@ -38,9 +33,8 @@ const MySelect = ({ label }) => {
         name="select"
         defaultValue={currentYear}
         onChange={(arg) => {
-        dispatch(setCurrentYear(arg.target.value));
-        }
-        }
+          dispatch(setCurrentYear(arg.target.value));
+        }}
       >
         {selectItems}
       </select>

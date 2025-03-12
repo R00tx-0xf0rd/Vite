@@ -1,9 +1,10 @@
-// import { useEffect } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PeriodCard from "../components/PeriodCard/PeriodCard";
 import { getPeriods } from "../store/PeriodsSlice";
 import MySelect from "./../components/UI/MySelect/MySelect";
+
+import { backend_addr } from "../helpers/constant";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -12,10 +13,9 @@ const Home = () => {
   );
 
   useEffect(() => {
-    // console.log("effect is called");
-    // console.log(currentYear);
-    dispatch(getPeriods(currentYear));
-  }, [ dispatch, currentYear]);
+    const url = `http://${backend_addr}/times/year/${currentYear}`;
+    dispatch(getPeriods(url));
+  }, [dispatch, currentYear]);
 
   return (
     <div className="totalCards">

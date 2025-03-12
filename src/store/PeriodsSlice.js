@@ -1,13 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { backend_addr } from "../helpers/constant";
 
 export const getPeriods = createAsyncThunk(
   "periods/getPeriods",
-  async (year = 2023) => {
-    const url = `http://${backend_addr}/times/year/${year}`;
-    // console.log(url);
-    
+  async (url) => {
     try {
       // Выполняем запрос к серверу
       const response = await axios.get(url, { timeout: 2000 });
