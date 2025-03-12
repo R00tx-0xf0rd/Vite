@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 
 const Layer = () => {
-  // console.log(additional);
+  // console.log('layer rendered');
   
   return (
     <div className="wrap">
@@ -28,7 +28,7 @@ const Layer = () => {
       <aside className="left-menu"></aside>
       </header>
       <Outlet />
-      <footer>@ all right reserved 2024</footer>
+      <footer>@ all right reserved 2025</footer>
     </div>
   );
 };

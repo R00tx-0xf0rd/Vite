@@ -1,9 +1,9 @@
 // import { styles } from './styles.module.css';
-import { Button, Modal } from 'antd'
+import { Button, Modal } from "antd";
 
-import React from 'react'
+import React from "react";
 
-const MyModal = ({children}) => {
+const MyModal = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const showModal = () => {
@@ -23,13 +23,16 @@ const MyModal = ({children}) => {
       <Button type="primary" onClick={showModal}>
         Open Modal
       </Button>
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+      <Modal
+        title="Basic Modal"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        {children}
       </Modal>
     </>
   );
-}
+};
 
-export default MyModal
+export default MyModal;

@@ -1,0 +1,10 @@
+select{
+  width: 90px;
+  height: 30px;
+  margin-left: 5px;
+  text-align: center;
+  background-color: #afadad;
+  color: #3e6b96;
+  border-radius: 5px;
+  border-color: teal;
+}

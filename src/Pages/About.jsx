@@ -1,42 +1,21 @@
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchData, monthStr } from "../helpers/lib";
-import { backend_addr } from "../helpers/constant";
 
 const About = () => {
-  const [users, setUsers] = useState([]);
 
-  const url = `http://${backend_addr}/times/year/2024`;
-  // const url = "https://jsonplaceholder.typicode.com/users";
-
-  async function getData(_url) {
-    const result = await fetchData(_url);
-
-    if (result.error) {
-      console.error(result.error);
-    } else {
-      console.log(result.data); // Данные в формате JSON
-      setUsers(result.data);
-    }
-  }
-
-  useEffect(() => {
-    getData(url);
-  }, []);
+  // const dispatch = useDispatch();
+  const { data, loading } = useSelector((state) => state.periodsState);
+  console.log(loading, data);
 
   return (
     <div>
       <h2>About</h2>
+      <Link to="/">Home</Link>
       <ul>
-        {users.map((item, index) => {
-          return (
-            <li key={index}>
-              month: {monthStr(item.month)} norm: {item.norm}
-            </li>
-          );
+        {!loading && data.map((item, index) => {
+          return <li key={index}>human_hours: {item.human_hours}</li>;
         })}
       </ul>
-      <Link to="/">Home</Link>
     </div>
   );
 };
