@@ -1,10 +1,8 @@
-import { useSelector } from "react-redux";
 import { analyze } from "../../helpers/lib";
 import ResultRow from "./ResultRow";
 import styles from "./styles.module.css";
 
-const ResultsTable = ({ periods }) => {
-  const {currentYear} = useSelector(state => state.periodsState);
+const ResultsTable = ({ periods, year }) => {
   if (!periods) return null;
   const summary = analyze(periods);
   const { hours, total_hours, ...otherData } = summary;
@@ -12,7 +10,7 @@ const ResultsTable = ({ periods }) => {
 
   return (
     <div>
-      <h3>Текущий год:{currentYear}</h3>
+      <h3>{year} год</h3>
       <div className={styles.innerBlock}>
         <div className={styles.rowItem}>
           <div className={styles.cell}>Норма часов: </div>

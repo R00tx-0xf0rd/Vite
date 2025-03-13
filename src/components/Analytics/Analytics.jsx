@@ -13,9 +13,8 @@ const Analytics = () => {
   const [lastMonth, setLastMonth] = React.useState(1);
 
   const dispatch = useDispatch();
-  const { currentYear, filteredData } = useSelector(
-    (state) => state.periodsState
-  );
+  const { prevYear, currentYear, filteredData, previousFilteredData } =
+    useSelector((state) => state.periodsState);
 
   useEffect(() => {
     dispatch(getPeriodsFromBegining(lastMonth));
@@ -36,18 +35,30 @@ const Analytics = () => {
   return (
     <Card style={{ backgroundColor: "#d4d4d4" }}>
       <h3>
-        Выбранный период: с начала {currentYear} года по{" "}
-        {extMonth[lastMonth - 1]} включительно
+        Сравнительный анализ {prevYear}, {currentYear} годов ( с начала года по{" "}
+        {extMonth[lastMonth - 1]} включительно)
       </h3>
-      <Select defaultValue={1} onChange={onChangeSelect} options={monthArr} label="Месяц года:" />
+      <Select
+        defaultValue={1}
+        onChange={onChangeSelect}
+        options={monthArr}
+        label="Месяц года:"
+      />
       {loading ? (
         <p>loading...</p>
       ) : (
         <div className={styles.grid}>
-          <div className={styles.zone1}>
-            {filteredData.length > 0 && <ResultsTable periods={filteredData} />}
+          <div className={styles.zone2}>
+            {filteredData.length > 0 && (
+              <ResultsTable periods={filteredData} year={currentYear} />
+            )}
           </div>
-          <div className={styles.zone2}></div>
+          <div className={styles.zone1}>
+            {previousFilteredData.length > 0 && (
+              <ResultsTable periods={previousFilteredData} year={prevYear} />
+            )}
+          </div>
+
           <div className={styles.zone3}></div>
         </div>
       )}

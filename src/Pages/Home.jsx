@@ -26,7 +26,7 @@ const Home = () => {
   }, [year]);
 
   useEffect(() => {
-    const url = `http://${backend_addr}/times/year/${currentYear}`;
+    const url = `http://${backend_addr}/times/year/pair/${currentYear}`;
     dispatch(getPeriods(url));
   }, [dispatch, currentYear]);
 

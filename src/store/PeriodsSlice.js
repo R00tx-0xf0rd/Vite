@@ -32,8 +32,11 @@ const initialState = {
   loading: true,
   error: null,
   currentYear: new Date().getFullYear(),
+  prevYear: new Date().getFullYear() - 1,
+  previousData: [],
   data: [],
-  filteredData:[]
+  previousFilteredData: [],
+  filteredData: [],
 };
 
 const PeriodsSlice = createSlice({
@@ -41,13 +44,17 @@ const PeriodsSlice = createSlice({
   initialState,
   reducers: {
     setCurrentYear: (state, action) => {
-      state.currentYear = action.payload;
+      state.currentYear = +action.payload;
+      state.prevYear = +action.payload - 1;
     },
     getPeriodsFromBegining: (state, action) => {
-      const copyData = [...state.data]
-      state.filteredData = copyData.filter(item => item.month <= action.payload);
-    }
-    
+      state.filteredData = state.data.filter(
+        (item) => item.month <= action.payload
+      );
+      state.previousFilteredData = state.previousData.filter(
+        (item) => item.month <= action.payload
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -57,7 +64,12 @@ const PeriodsSlice = createSlice({
       })
       .addCase(getPeriods.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.data = action.payload.filter(
+          (item) => item.year === +state.currentYear
+        );
+        state.previousData = action.payload.filter(
+          (item) => item.year !== +state.currentYear
+        );
         state.error = null;
       })
       .addCase(getPeriods.rejected, (state, action) => {
