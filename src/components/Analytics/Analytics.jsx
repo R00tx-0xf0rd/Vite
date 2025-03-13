@@ -1,53 +1,51 @@
 import { Card } from "antd";
-import React, { useEffect } from "react";
-import { month as extMonth, fetchData } from "../../helpers/lib";
-
-import { backend_addr } from "../../helpers/constant";
-import ResultsTable from "./ResultsTable";
+import React, { useEffect, useMemo } from "react";
+import { month as extMonth, month } from "../../helpers/lib";
 import styles from "./styles.module.css";
 
+import { useDispatch, useSelector } from "react-redux";
+import { getPeriodsFromBegining } from "../../store/PeriodsSlice";
+import Select from "../UI/Select/Select";
+import ResultsTable from "./ResultsTable";
+
 const Analytics = () => {
-  const [loading, setLoading] = React.useState(true);
-  const [month, setMonth] = React.useState(1);
-  const [year, setYear] = React.useState(2024);
-  const [periods, setPeriods] = React.useState(null);
+  const loading = false;
+  const [lastMonth, setLastMonth] = React.useState(1);
+
+  const dispatch = useDispatch();
+  const { currentYear, filteredData } = useSelector(
+    (state) => state.periodsState
+  );
 
   useEffect(() => {
-    // analyze();
-  }, [periods]);
-
-  useEffect(() => {
-    setLoading(true);
-    const url = `http://${backend_addr}/times/from-begin/${month}/${year}`;
-    fetchData(url).then((result) => {
-      setPeriods(result.data);
-    });
-    setLoading(false);
-  }, [month, year]);
+    dispatch(getPeriodsFromBegining(lastMonth));
+  }, [dispatch, lastMonth]);
 
   const onChangeSelect = (e) => {
-    setLoading(true);
-    setMonth(() => e.target.value);
+    setLastMonth(e.target.value);
   };
+
+  const monthArr = useMemo(() => {
+    const monthData = [];
+    month.forEach((item, index) => {
+      monthData.push({ value: `${index + 1}`, label: `${item}` });
+    });
+    return monthData;
+  }, []);
 
   return (
     <Card style={{ backgroundColor: "#d4d4d4" }}>
       <h3>
-        Выбранный период: с начала года по {extMonth[month - 1]} включительно
+        Выбранный период: с начала {currentYear} года по{" "}
+        {extMonth[lastMonth - 1]} включительно
       </h3>
-      <select onChange={onChangeSelect} name="month" id="">
-        {extMonth.map((item, index) => (
-          <option key={index + 1} value={index + 1}>
-            {item}
-          </option>
-        ))}
-      </select>
+      <Select defaultValue={1} onChange={onChangeSelect} options={monthArr} label="Месяц года:" />
       {loading ? (
         <p>loading...</p>
       ) : (
         <div className={styles.grid}>
           <div className={styles.zone1}>
-            <ResultsTable periods={periods} />
+            {filteredData.length > 0 && <ResultsTable periods={filteredData} />}
           </div>
           <div className={styles.zone2}></div>
           <div className={styles.zone3}></div>
