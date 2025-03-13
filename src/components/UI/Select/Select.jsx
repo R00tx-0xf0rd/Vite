@@ -1,16 +1,17 @@
 import styles from "./styles.module.css";
 
-const Select = ({ defaultValue, options, onChange }) => {
-  console.log('select rendered', defaultValue);
-  
+const Select = ({ defaultValue, options, onChange, label="Выберите значение" }) => {
   return (
-    <select defaultValue={defaultValue} onChange={onChange}>
-      {options.map((option, index) => (
-        <option key={index} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
+    <div className={styles.wrap}>
+      <label>{label}</label>
+      <select defaultValue={defaultValue} onChange={onChange}>
+        {options.map((option, index) => (
+          <option key={index} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 

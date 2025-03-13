@@ -8,3 +8,12 @@ select{
   border-radius: 5px;
   border-color: teal;
 }
+
+.wrap{
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-block: 10px;
+}
+
