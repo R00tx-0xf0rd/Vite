@@ -33,6 +33,7 @@ const initialState = {
   error: null,
   currentYear: new Date().getFullYear(),
   data: [],
+  filteredData:[]
 };
 
 const PeriodsSlice = createSlice({
@@ -42,6 +43,11 @@ const PeriodsSlice = createSlice({
     setCurrentYear: (state, action) => {
       state.currentYear = action.payload;
     },
+    getPeriodsFromBegining: (state, action) => {
+      const copyData = [...state.data]
+      state.filteredData = copyData.filter(item => item.month <= action.payload);
+    }
+    
   },
   extraReducers: (builder) => {
     builder
@@ -63,4 +69,4 @@ const PeriodsSlice = createSlice({
 });
 
 export default PeriodsSlice.reducer;
-export const { setCurrentYear } = PeriodsSlice.actions;
+export const { setCurrentYear, getPeriodsFromBegining } = PeriodsSlice.actions;

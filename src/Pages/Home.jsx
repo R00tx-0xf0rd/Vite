@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PeriodCard from "../components/PeriodCard/PeriodCard";
-import { getPeriods } from "../store/PeriodsSlice";
-import MySelect from "./../components/UI/MySelect/MySelect";
+import { getPeriods, setCurrentYear } from "../store/PeriodsSlice";
 
+import Select from "../components/UI/Select/Select";
 import { backend_addr } from "../helpers/constant";
 
 const Home = () => {
@@ -11,6 +11,19 @@ const Home = () => {
   const { currentYear, data, error } = useSelector(
     (store) => store.periodsState
   );
+
+  const handleSelectYearChange = (event) => {
+    dispatch(setCurrentYear(event.target.value));
+  };
+
+  const year = new Date().getFullYear();
+  const options = useMemo(() => {
+    const options = [];
+    for (let i = year - 5; i <= year; i++) {
+      options.push({ value: `${i}`, label: `${i}` });
+    }
+    return options;
+  }, [year]);
 
   useEffect(() => {
     const url = `http://${backend_addr}/times/year/${currentYear}`;
@@ -22,7 +35,12 @@ const Home = () => {
       <h2 style={{ textAlign: "center", fontWeight: 600 }}>
         Доступные периоды
       </h2>
-      <MySelect label={"Текущий период"} />
+      <Select
+        defaultValue={currentYear}
+        options={options}
+        onChange={handleSelectYearChange}
+        label="Выберите год:"
+      />
       {data.length > 0 ? (
         <div
           className="all-cards"
