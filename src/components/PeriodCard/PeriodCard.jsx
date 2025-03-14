@@ -1,11 +1,30 @@
 import { Card } from "antd";
-// import React from 'react'
-import { monthStr } from "../../helpers/lib";
-import styles from "./styles.module.css";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { monthStr } from "../../helpers/lib";
+import MyModal from "../MyModal/MyModal";
+import styles from "./styles.module.css";
 
 const PeriodCard = ({ ...period }) => {
-  // console.log({period});
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (isOpen && !event.target.closest('.modal')) {
+        closeModal();
+      }
+    };
+
+    window.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      window.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -16,8 +35,6 @@ const PeriodCard = ({ ...period }) => {
         title={`Карточка за ${monthStr(period.month)} ${period.year} года `}
       >
         <ul>
-          {/* <li>Год: {period.year}</li>
-          <li>Месяц: {monthStr(period.month)}</li> */}
           <li>
             Норма часов: <span>{period.norm}</span>
           </li>
@@ -28,13 +45,14 @@ const PeriodCard = ({ ...period }) => {
             Недостаток человек: <span>{period.human_hours}</span>
           </li>
         </ul>
-        
-          <Link
+
+        {/* <Link
             to={`detail/period/${period.month}/${period.year}`}
           >
             Подробнее...
-          </Link>
-        
+          </Link> */}
+        <Link onClick={() => setIsOpen(true)}>Подробнее</Link>
+        {isOpen && <MyModal month = {period.month} onClose={closeModal} />}
       </Card>
     </>
   );

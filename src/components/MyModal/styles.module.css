@@ -1,0 +1,77 @@
+.wrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 100;
+}
+
+.modal {
+  width: 550px;
+  height: 350px;
+  background-color: #d8d8d8;
+  /* color: #3e416b; */
+  border-radius: 5px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+}
+
+.modal-content {
+  font-family: jura;
+  color: #1b64ec;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0 15px;
+  height: 100%;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  border-bottom: 2px solid #979797;
+}
+
+.closeBtn {
+  padding: 5px;
+  background-color: transparent;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #f34e4e;
+  cursor: pointer;
+}
+
+.modal-body {
+  font-weight: 500;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 0 20px;
+}
+
+.cell {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+}
+
+.modal-body span:first-child {
+  color: #7200a7;
+  text-align: center;
+}
+.modal-body span:last-child {
+  font-weight: 900;
+  /* color: #b18200; */
+  text-align: center;
+}
