@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const month = [
   "январь",
   "февраль",
@@ -17,20 +15,6 @@ export const month = [
 export function monthStr(indx) {
   if (indx < 13 && indx > 0) return month[indx - 1];
   return month[0];
-}
-
-export async function fetchData(url) {
-  try {
-    const response = await axios.get(url);
-
-    if (response.status >= 400) {
-      throw new Error(`Request failed with status code ${response.status}`);
-    }
-
-    return { data: response.data };
-  } catch (error) {
-    return { error: error.message || "An unknown error occurred." };
-  }
 }
 
 export function analyze(periods) {
@@ -56,13 +40,9 @@ export function analyze(periods) {
     }
     const less7 = Object.values(overtime).reduce((a, b) => a + b, 0);
     sum += less7;
-    outObj["less7"] = (outObj["less7"] || 0) + less7;
+    outObj["less7"] = less7.toFixed(1);
     outObj["hours"] = (outObj["hours"] || 0) + sum - rest["norm"];
     outObj["total_hours"] = (outObj["total_hours"] || 0) + total_hours;
   });
-
-  console.log(outObj);
-  
-
   return outObj;
 }

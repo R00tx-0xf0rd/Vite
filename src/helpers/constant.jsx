@@ -1,3 +1,5 @@
+export const backend_addr = "10.123.20.76:8000";
+
 export const ROW_NAMES = [
   "Норма часов:",
   "Нехватка человек:",
@@ -16,4 +18,20 @@ export const ROW_NAMES = [
   "hours___:",
 ];
 
-export const backend_addr = "10.123.20.76:8000";
+export const nameOfFields = {
+  norm: "Норма",
+  human_hours: "Недостаток человек",
+  pass_follow: "Следование пассажиром",
+  rez_follow: "Следование резервом",
+  wait_follow: "Простой в ожидании",
+  vacations: "Очередной отпуск",
+  diseases: "Болезнь свыше нормы",
+  distractions: "Отвлечение в депо",
+  business_trips: "Командировки",
+  outside_depots: "Вне депо",
+  doublers: "Дублеры",
+  training_vacations: "Учебный отпуск",
+  less7: "Сверхурочные до 7 часов",
+  hours: "Всего",
+  total_hours: "Всего часов",
+}
