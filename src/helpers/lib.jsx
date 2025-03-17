@@ -35,7 +35,7 @@ export function analyze(periods) {
         val = rest[key] * rest["norm"];
       }
       outObj[key] = (outObj[key] || 0) + val;
-      console.log(key, "=", val, outObj[key]);
+      // console.log(key, "=", val, outObj[key]);
       
 
       sum += val;

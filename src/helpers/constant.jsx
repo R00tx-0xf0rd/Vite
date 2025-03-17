@@ -1,4 +1,4 @@
-export const backend_addr = "10.123.20.76:8000";
+export const backend_addr = "localhost:8000";
 
 export const ROW_NAMES = [
   "Норма часов:",

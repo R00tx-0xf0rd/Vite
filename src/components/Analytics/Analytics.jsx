@@ -4,24 +4,29 @@ import { analyze, month as extMonth, month } from "../../helpers/lib";
 import styles from "./styles.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getPeriodsFromBegining } from "../../store/PeriodsSlice";
+import { filterPeriods } from "../../store/PeriodsSlice";
 import Select from "../UI/Select/Select";
 import ResultsTable from "./ResultsTable";
 
 const Analytics = () => {
   const loading = false;
   const [lastMonth, setLastMonth] = React.useState(1);
+  const [filterType, setFilterType] = React.useState(0);
 
   const dispatch = useDispatch();
   const { prevYear, currentYear, filteredData, previousFilteredData } =
     useSelector((state) => state.periodsState);
 
   useEffect(() => {
-    dispatch(getPeriodsFromBegining(lastMonth));
-  }, [dispatch, lastMonth]);
+    dispatch(filterPeriods({lastMonth, filterType}));
+  }, [dispatch, lastMonth, filterType]);
 
   const onChangeSelect = (e) => {
     setLastMonth(e.target.value);
+  };
+
+  const changeFilter = (e) => {
+    setFilterType(e.target.value);
   };
 
   const comparePeriods = useMemo(() => {
@@ -40,7 +45,7 @@ const Analytics = () => {
       // console.log(key, prevPercent.toFixed(1), currentPercent.toFixed(1));
     }
 
-    console.log(prevPeriod, currentPeriod);
+    // console.log(prevPeriod, currentPeriod);
   }, [filteredData, previousFilteredData]);
 
   const monthArr = useMemo(() => {
@@ -50,6 +55,7 @@ const Analytics = () => {
     });
     return monthData;
   }, []);
+
 
   return (
     <Card style={{ backgroundColor: "#d4d4d4" }}>
@@ -63,6 +69,10 @@ const Analytics = () => {
         options={monthArr}
         label="Месяц года:"
       />
+      <input type="radio" value={0} defaultChecked name="filter" onClick={changeFilter} />
+      {"From beginning of year"}
+      <input type="radio" value={1} name="filter" onClick={changeFilter} />
+      {"From same month of previous year"}
       {loading ? (
         <p>loading...</p>
       ) : (
@@ -86,5 +96,3 @@ const Analytics = () => {
 };
 
 export default Analytics;
-
-
