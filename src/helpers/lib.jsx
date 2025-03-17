@@ -35,12 +35,14 @@ export function analyze(periods) {
         val = rest[key] * rest["norm"];
       }
       outObj[key] = (outObj[key] || 0) + val;
+      console.log(key, "=", val, outObj[key]);
+      
 
       sum += val;
     }
     const less7 = Object.values(overtime).reduce((a, b) => a + b, 0);
     sum += less7;
-    outObj["less7"] = less7.toFixed(1);
+    outObj["less7"] =(outObj["less7"] || 0) + less7;
     outObj["hours"] = (outObj["hours"] || 0) + sum - rest["norm"];
     outObj["total_hours"] = (outObj["total_hours"] || 0) + total_hours;
   });

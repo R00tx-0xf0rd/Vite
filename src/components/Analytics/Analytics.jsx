@@ -1,6 +1,6 @@
 import { Card } from "antd";
 import React, { useEffect, useMemo } from "react";
-import { month as extMonth, month } from "../../helpers/lib";
+import { analyze, month as extMonth, month } from "../../helpers/lib";
 import styles from "./styles.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +23,25 @@ const Analytics = () => {
   const onChangeSelect = (e) => {
     setLastMonth(e.target.value);
   };
+
+  const comparePeriods = useMemo(() => {
+    if (filteredData.length === 0) return;
+    const prevPeriod = analyze(previousFilteredData);
+    const currentPeriod = analyze(filteredData);
+    for (let key in currentPeriod) {
+      if (["norm", "hours", "total_hours"].includes(key)) {
+        continue;
+      }
+      const currentPercent =
+        currentPeriod["total_hours"] *
+        (currentPeriod[key] / currentPeriod["hours"]);
+      const prevPercent =
+        prevPeriod["total_hours"] * (prevPeriod[key] / prevPeriod["hours"]);
+      // console.log(key, prevPercent.toFixed(1), currentPercent.toFixed(1));
+    }
+
+    console.log(prevPeriod, currentPeriod);
+  }, [filteredData, previousFilteredData]);
 
   const monthArr = useMemo(() => {
     const monthData = [];
@@ -67,3 +86,5 @@ const Analytics = () => {
 };
 
 export default Analytics;
+
+
