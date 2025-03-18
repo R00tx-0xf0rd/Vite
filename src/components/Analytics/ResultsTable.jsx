@@ -1,12 +1,11 @@
-import { analyze } from "../../helpers/lib";
+import { parsePeriod } from "../../helpers/lib";
 import ResultRow from "./ResultRow";
 import styles from "./styles.module.css";
 
 const ResultsTable = ({ periods, year }) => {
   if (!periods) return null;
-  const summary = analyze(periods);
+  const summary = parsePeriod(periods);
   const { hours, total_hours, ...otherData } = summary;
-
 
   return (
     <div>

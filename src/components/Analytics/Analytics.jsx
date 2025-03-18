@@ -1,6 +1,6 @@
 import { Card } from "antd";
 import React, { useEffect, useMemo } from "react";
-import { analyze, month as extMonth, month } from "../../helpers/lib";
+import { month as extMonth, month, parsePeriod } from "../../helpers/lib";
 import styles from "./styles.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +18,7 @@ const Analytics = () => {
     useSelector((state) => state.periodsState);
 
   useEffect(() => {
-    dispatch(filterPeriods({lastMonth, filterType}));
+    dispatch(filterPeriods({ lastMonth, filterType }));
   }, [dispatch, lastMonth, filterType]);
 
   const onChangeSelect = (e) => {
@@ -31,8 +31,8 @@ const Analytics = () => {
 
   const comparePeriods = useMemo(() => {
     if (filteredData.length === 0) return;
-    const prevPeriod = analyze(previousFilteredData);
-    const currentPeriod = analyze(filteredData);
+    const prevPeriod = parsePeriod(previousFilteredData);
+    const currentPeriod = parsePeriod(filteredData);
     for (let key in currentPeriod) {
       if (["norm", "hours", "total_hours"].includes(key)) {
         continue;
@@ -56,7 +56,6 @@ const Analytics = () => {
     return monthData;
   }, []);
 
-
   return (
     <Card style={{ backgroundColor: "#d4d4d4" }}>
       <h3>
@@ -69,7 +68,13 @@ const Analytics = () => {
         options={monthArr}
         label="Месяц года:"
       />
-      <input type="radio" value={0} defaultChecked name="filter" onClick={changeFilter} />
+      <input
+        type="radio"
+        value={0}
+        defaultChecked
+        name="filter"
+        onClick={changeFilter}
+      />
       {"From beginning of year"}
       <input type="radio" value={1} name="filter" onClick={changeFilter} />
       {"From same month of previous year"}
