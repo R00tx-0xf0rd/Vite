@@ -1,5 +1,5 @@
 import { Card } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { monthStr } from "../../helpers/lib";
 import MyModal from "../MyModal/MyModal";
@@ -11,20 +11,6 @@ const PeriodCard = ({ ...period }) => {
   const closeModal = () => {
     setIsOpen(false);
   };
-
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (isOpen && !event.target.closest('.modal')) {
-        closeModal();
-      }
-    };
-
-    window.addEventListener('mousedown', handleOutsideClick);
-
-    return () => {
-      window.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [isOpen]);
 
   return (
     <>

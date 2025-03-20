@@ -12,8 +12,8 @@ const MyModal = ({ month, onClose }) => {
   const obj = parsePeriod([period]);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.modal}>
+    <div className={styles.wrapper} onClick={() => onClose()}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles["modal-content"]}>
           <div className={styles.header}>
             <h3>
