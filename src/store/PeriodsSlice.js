@@ -47,13 +47,27 @@ const PeriodsSlice = createSlice({
       state.currentYear = +action.payload;
       state.prevYear = +action.payload - 1;
     },
-    getPeriodsFromBegining: (state, action) => {
-      state.filteredData = state.data.filter(
-        (item) => item.month <= action.payload
-      );
-      state.previousFilteredData = state.previousData.filter(
-        (item) => item.month <= action.payload
-      );
+    filterPeriods: (state, action) => {
+      
+      switch (+action.payload.filterType) {
+        case 0:
+
+          state.filteredData = state.data.filter(
+            (item) => item.month <= action.payload.lastMonth
+          );
+          state.previousFilteredData = state.previousData.filter(
+            (item) => item.month <= action.payload.lastMonth
+          );
+          break;
+        case 1:
+          state.filteredData = state.data.filter(
+            (item) => item.month === +action.payload.lastMonth
+          );
+          state.previousFilteredData = state.previousData.filter(
+            (item) => item.month === +action.payload.lastMonth
+          );
+          break;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -81,4 +95,4 @@ const PeriodsSlice = createSlice({
 });
 
 export default PeriodsSlice.reducer;
-export const { setCurrentYear, getPeriodsFromBegining } = PeriodsSlice.actions;
+export const { setCurrentYear, filterPeriods } = PeriodsSlice.actions;

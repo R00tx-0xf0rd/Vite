@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { analyze, monthStr } from "../../helpers/lib";
+import { monthStr, parsePeriod } from "../../helpers/lib";
 import { nameOfFields } from "./../../helpers/constant";
 import styles from "./styles.module.css";
 
@@ -9,11 +9,11 @@ const MyModal = ({ month, onClose }) => {
   );
 
   const excludKeys = ["norm", "total_hours"];
-  const obj = analyze([period]);
+  const obj = parsePeriod([period]);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.modal}>
+    <div className={styles.wrapper} onClick={() => onClose()}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles["modal-content"]}>
           <div className={styles.header}>
             <h3>
