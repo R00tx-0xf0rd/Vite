@@ -16,3 +16,29 @@ ul{
     justify-content: space-between;
   }
 }
+
+
+
+.cell {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.dataset {
+  width: 45%;
+  font-size: 12px;
+  gap: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-body span:first-child {
+  color: #313131;
+  text-align: center;
+}
+.modal-body span:last-child {
+  font-weight: 900;
+  color: red;
+  text-align: center;
+}
